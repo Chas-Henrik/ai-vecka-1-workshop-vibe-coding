@@ -1,0 +1,1 @@
+# A simple Next.js app

@@ -49,9 +49,23 @@ const GameBoard = () => {
   const [grid, setGrid] = useState(setupGrid());
   const [score, setScore] = useState(0);
 
+  const [gameOver, setGameOver] = useState(false);
+
   const restartGame = () => {
     setGrid(setupGrid());
     setScore(0);
+    setGameOver(false);
+  };
+
+  const submitScore = async () => {
+    await fetch("/api/score", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ score }),
+    });
+    alert("Score submitted!");
   };
 
 

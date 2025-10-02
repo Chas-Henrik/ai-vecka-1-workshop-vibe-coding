@@ -149,7 +149,7 @@ const GameBoard = () => {
       </div>
       <div className="grid grid-cols-10 gap-1">
         {grid.map((cell, index) => (
-          <div key={index} onClick={() => handleCellClick(index)} onContextMenu={(e) => handleCellContext(e, index)} className="w-8 h-8 bg-gray-300 hover:bg-gray-400 border border-gray-500 flex justify-center items-center">
+          <div key={index} onClick={() => handleCellClick(index)} onContextMenu={(e) => handleCellContext(e, index)} className={`w-8 h-8 border border-gray-500 flex justify-center items-center ${cell.revealed ? 'bg-white' : 'bg-gray-300 hover:bg-gray-400'}`}>
             {cell.revealed ? (cell.mine ? '💣' : cell.adjacentMines > 0 ? cell.adjacentMines : '') : cell.flagged ? '🚩' : ''}
           </div>
         ))}

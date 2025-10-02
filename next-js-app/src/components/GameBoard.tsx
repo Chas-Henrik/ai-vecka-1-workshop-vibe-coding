@@ -62,6 +62,7 @@ const GameBoard = () => {
     newGrid[index].revealed = true;
 
     if (newGrid[index].mine) {
+      setScore(score - 5);
       alert("Game Over!");
       // Reveal all mines
       for (let i = 0; i < newGrid.length; i++) {
@@ -72,6 +73,8 @@ const GameBoard = () => {
       setGrid(newGrid);
       return;
     }
+
+    setScore(score + 1);
 
     if (newGrid[index].adjacentMines === 0) {
       // Reveal adjacent cells
@@ -88,6 +91,7 @@ const GameBoard = () => {
               const neighborIndex = newRow * COLS + newCol;
               if (!newGrid[neighborIndex].revealed && !newGrid[neighborIndex].flagged) {
                 newGrid[neighborIndex].revealed = true;
+                setScore(prevScore => prevScore + 1);
                 if (newGrid[neighborIndex].adjacentMines === 0) {
                   revealAdjacent(neighborIndex);
                 }
@@ -97,6 +101,13 @@ const GameBoard = () => {
         }
       };
       revealAdjacent(index);
+    }
+
+    // Check for win
+    const revealedCount = newGrid.filter(cell => cell.revealed).length;
+    if (revealedCount === ROWS * COLS - MINES) {
+      setScore(score + 50);
+      alert("You Win!");
     }
 
     setGrid(newGrid);

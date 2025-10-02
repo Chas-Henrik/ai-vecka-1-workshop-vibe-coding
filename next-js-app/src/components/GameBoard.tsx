@@ -113,12 +113,18 @@ const GameBoard = () => {
   };
 
   return (
-    <div className="grid grid-cols-10 gap-1">
-      {grid.map((cell, index) => (
-        <div key={index} onClick={() => handleCellClick(index)} onContextMenu={(e) => handleCellContext(e, index)} className="w-8 h-8 bg-gray-300 hover:bg-gray-400 border border-gray-500 flex justify-center items-center">
-          {cell.revealed ? (cell.mine ? '💣' : cell.adjacentMines > 0 ? cell.adjacentMines : '') : cell.flagged ? '🚩' : ''}
-        </div>
-      ))}
+    <div>
+      <div className="flex justify-between items-center mb-4">
+        <div className="text-xl font-bold">Score: {score}</div>
+        <button onClick={restartGame} className="px-4 py-2 bg-blue-500 text-white rounded">Restart</button>
+      </div>
+      <div className="grid grid-cols-10 gap-1">
+        {grid.map((cell, index) => (
+          <div key={index} onClick={() => handleCellClick(index)} onContextMenu={(e) => handleCellContext(e, index)} className="w-8 h-8 bg-gray-300 hover:bg-gray-400 border border-gray-500 flex justify-center items-center">
+            {cell.revealed ? (cell.mine ? '💣' : cell.adjacentMines > 0 ? cell.adjacentMines : '') : cell.flagged ? '🚩' : ''}
+          </div>
+        ))}
+      </div>
     </div>
   );
 };

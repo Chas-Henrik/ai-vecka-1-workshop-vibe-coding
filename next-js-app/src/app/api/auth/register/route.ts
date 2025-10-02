@@ -1,5 +1,5 @@
 
-import { PrismaClient } from "@/generated/prisma/client";
+import { PrismaClient } from "@prisma/client";
 import { NextRequest, NextResponse } from "next/server";
 import * as bcrypt from "bcrypt";
 

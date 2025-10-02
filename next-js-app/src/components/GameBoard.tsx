@@ -77,6 +77,7 @@ const GameBoard = () => {
 
     if (newGrid[index].mine) {
       setScore(score - 5);
+      setGameOver(true);
       alert("Game Over!");
       // Reveal all mines
       for (let i = 0; i < newGrid.length; i++) {
@@ -121,12 +122,12 @@ const GameBoard = () => {
     const revealedCount = newGrid.filter(cell => cell.revealed).length;
     if (revealedCount === ROWS * COLS - MINES) {
       setScore(score + 50);
+      setGameOver(true);
       alert("You Win!");
     }
 
     setGrid(newGrid);
   };
-
 
   const handleCellContext = (e: React.MouseEvent, index: number) => {
     e.preventDefault();
@@ -141,7 +142,10 @@ const GameBoard = () => {
     <div>
       <div className="flex justify-between items-center mb-4">
         <div className="text-xl font-bold">Score: {score}</div>
-        <button onClick={restartGame} className="px-4 py-2 bg-blue-500 text-white rounded">Restart</button>
+        <div>
+          {gameOver && <button onClick={submitScore} className="px-4 py-2 bg-green-500 text-white rounded mr-2">Submit Score</button>}
+          <button onClick={restartGame} className="px-4 py-2 bg-blue-500 text-white rounded">Restart</button>
+        </div>
       </div>
       <div className="grid grid-cols-10 gap-1">
         {grid.map((cell, index) => (

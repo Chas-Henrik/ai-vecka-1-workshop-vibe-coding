@@ -47,6 +47,12 @@ const setupGrid = () => {
 
 const GameBoard = () => {
   const [grid, setGrid] = useState(setupGrid());
+  const [score, setScore] = useState(0);
+
+  const restartGame = () => {
+    setGrid(setupGrid());
+    setScore(0);
+  };
 
 
   const handleCellClick = (index: number) => {

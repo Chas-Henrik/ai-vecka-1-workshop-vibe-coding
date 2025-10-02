@@ -96,11 +96,21 @@ const GameBoard = () => {
     setGrid(newGrid);
   };
 
+
+  const handleCellContext = (e: React.MouseEvent, index: number) => {
+    e.preventDefault();
+    const newGrid = [...grid];
+    if (newGrid[index].revealed) return;
+
+    newGrid[index].flagged = !newGrid[index].flagged;
+    setGrid(newGrid);
+  };
+
   return (
     <div className="grid grid-cols-10 gap-1">
       {grid.map((cell, index) => (
-        <div key={index} onClick={() => handleCellClick(index)} className="w-8 h-8 bg-gray-300 hover:bg-gray-400 border border-gray-500 flex justify-center items-center">
-          {cell.revealed ? (cell.mine ? '💣' : cell.adjacentMines > 0 ? cell.adjacentMines : '') : ''}
+        <div key={index} onClick={() => handleCellClick(index)} onContextMenu={(e) => handleCellContext(e, index)} className="w-8 h-8 bg-gray-300 hover:bg-gray-400 border border-gray-500 flex justify-center items-center">
+          {cell.revealed ? (cell.mine ? '💣' : cell.adjacentMines > 0 ? cell.adjacentMines : '') : cell.flagged ? '🚩' : ''}
         </div>
       ))}
     </div>
